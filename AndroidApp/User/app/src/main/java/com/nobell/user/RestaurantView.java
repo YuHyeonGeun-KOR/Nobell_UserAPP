@@ -43,13 +43,12 @@ public class RestaurantView extends AppCompatActivity {
     private String rs_open;
     private String rs_close;
     private String rs_owner;
-
+    private ListView mListView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_restaurant_view);
         btn_res = findViewById(R.id.btn_res);
-
         btn_res.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -63,13 +62,26 @@ public class RestaurantView extends AppCompatActivity {
                     e.printStackTrace();
                 }
 
-                StringBuffer sb = new StringBuffer("");
+                String sb = "";
 
                 try {
-
                     JSONArray jarray = new JSONArray(data_r);
+                    for (int i = 0; i < jarray.length(); i++){
+                        JSONObject jsonObject = jarray.getJSONObject(i);
+                        rs_id = jsonObject.getInt("rs_id");
+                        rs_name = jsonObject.getString("rs_name");
+                        rs_phone = jsonObject.getString("rs_phone");
+                        rs_address = jsonObject.getString("rs_address");
+                        rs_intro = jsonObject.getString("rs_intro");
+                        rs_open = jsonObject.getString("rs_open");
+                        rs_close = jsonObject.getString("rs_close");
+                        rs_owner = jsonObject.getString("rs_owner");
+
+                    }
+
+
                     Intent intent = new Intent(RestaurantView.this, ItemList.class);
-                    intent.putExtra("restaurant",data_r);
+
                     startActivity(intent);
 
 
