@@ -112,7 +112,7 @@ public class RegisterActivity extends AppCompatActivity {
 
             try {
 
-                URL url = new URL("http://172.20.10.2:3000/user/register");
+                URL url = new URL("http://10.20.14.70:3000/customer/register");
                 HttpURLConnection conn = (HttpURLConnection) url.openConnection();
 
                 conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");

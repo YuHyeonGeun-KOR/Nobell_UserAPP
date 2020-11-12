@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".InfoMainActivity">
+
+    <Button
+        android:id="@+id/btn_upt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:gravity="center"
+        android:text="수정하기"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/edt_email" />
+
+    <EditText
+        android:id="@+id/edt_pwd"
+        android:layout_width="269dp"
+        android:layout_height="45dp"
+        android:layout_marginTop="36dp"
+
+        android:hint="수정할 비밀번호"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView18" />
+
+    <EditText
+        android:id="@+id/edt_email"
+        android:layout_width="269dp"
+        android:layout_height="45dp"
+        android:layout_marginTop="28dp"
+        android:hint="Email"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/edt_pwd2" />
+
+    <EditText
+        android:id="@+id/edt_pwd2"
+        android:layout_width="269dp"
+        android:layout_height="45dp"
+        android:layout_marginTop="24dp"
+        android:hint="비밀번호 확인"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/edt_pwd" />
+
+    <TextView
+        android:id="@+id/textView18"
+        android:layout_width="409dp"
+        android:layout_height="99dp"
+        android:background="#FFECA7"
+        android:text="회원정보수정"
+        android:textSize="50dp"
+        android:gravity="center"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -24,7 +24,8 @@ android {
 
 dependencies {
     //네이버 로그인
-    implementation 'com.naver.nid:naveridlogin-android-sdk:4.2.6'   // import from jcenter
+    implementation 'com.naver.nid:naveridlogin-android-sdk:4.2.6'
+    implementation 'com.android.support:design:28.0.0'// import from jcenter
 
     // naveridlogin dependencies
     def android_x_version = "1.0.0"
@@ -41,5 +42,7 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+
+
 
 }
