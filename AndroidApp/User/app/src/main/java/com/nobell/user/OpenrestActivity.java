@@ -97,7 +97,7 @@ public class OpenrestActivity extends AppCompatActivity {
                             rs_id = jsonObject2.getInt("table_rs_id");
                             table_no_string = Integer.toString(table_no);
 
-                            btn_order.setText(table_no +"번 테이블 주문하기.");
+                            btn_order.setText(table_no +"번 테이블 주문하기");
                             btn_order.setEnabled(true);
 
 
