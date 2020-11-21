@@ -3,8 +3,10 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.nobell.user.model.HttpConnector;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -13,13 +15,14 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 public class OpenrestActivity extends AppCompatActivity {
-    private ImageButton btn_Info,btn_Search;
+    private ImageButton btn_Info,btn_Search,btn_pay;
     String customer_email ;
     String data_t;
     String rs_name;
@@ -43,6 +46,8 @@ public class OpenrestActivity extends AppCompatActivity {
         btn_Search = findViewById(R.id.btn_Search);
         btn_Info = findViewById(R.id.btn_Info);
         btn_order = findViewById(R.id.button_order);
+        btn_pay = findViewById(R.id.btn_pay);
+
 
         String param ="&customer_email=" + customer_email;
         HttpConnector conn = new HttpConnector();
@@ -62,6 +67,8 @@ public class OpenrestActivity extends AppCompatActivity {
 
                     btn_order.setText("이용중인 식당이 없습니다");
                     btn_order.setEnabled(false);
+                    btn_pay.setEnabled(false);
+                    btn_pay.setVisibility(View.INVISIBLE);
                 }
                 else if(customer_state.equals("1")){
 
@@ -77,7 +84,8 @@ public class OpenrestActivity extends AppCompatActivity {
                             Log.e("RECV DATA", rs_name);
                             btn_order.setText(rs_name + "에 방문요청중입니다.");
                             btn_order.setEnabled(false);
-
+                            btn_pay.setEnabled(false);
+                            btn_pay.setVisibility(View.INVISIBLE);
                         }
 
                     } catch (JSONException e) {
@@ -96,10 +104,10 @@ public class OpenrestActivity extends AppCompatActivity {
                             table_no = jsonObject2.getInt("table_no");
                             rs_id = jsonObject2.getInt("table_rs_id");
                             table_no_string = Integer.toString(table_no);
-
+                            btn_pay.setVisibility(View.VISIBLE);
                             btn_order.setText(table_no +"번 테이블 주문하기");
                             btn_order.setEnabled(true);
-
+                            btn_pay.setEnabled(true);
 
                         }
 
@@ -107,8 +115,16 @@ public class OpenrestActivity extends AppCompatActivity {
                         e.printStackTrace();
                     }
 
-                }
+                }else if(customer_state.equals("3")){
 
+
+
+                            btn_order.setText("결제를 요청하였습니다. 결제 대기중입니다.");
+                            btn_order.setEnabled(false);
+                            btn_pay.setEnabled(false);
+                            btn_pay.setVisibility(View.INVISIBLE);
+
+                        }
 
 
             }
@@ -153,5 +169,37 @@ public class OpenrestActivity extends AppCompatActivity {
 
     }
 
+    public void PayOnClickHandler(View view)
+    {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
 
+        builder.setTitle("결제하기").setMessage("결제를 요청하시겠습니까??");
+
+        builder.setPositiveButton("OK", new DialogInterface.OnClickListener(){
+            @Override
+            public void onClick(DialogInterface dialog, int id)
+            {
+                String param ="&customer_email=" + customer_email + "&pay_rs=" + rs_id + "&pay_table=" + table_no;
+                HttpConnector conn2 = new HttpConnector();
+                String data_t2 = conn2.httpConnect(param,"/pay","POST");
+                Toast.makeText(getApplicationContext(), "결제를 요청하셨습니다.", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(OpenrestActivity.this, OpenrestActivity.class);
+                intent.putExtra("customer_email", customer_email);
+                startActivity(intent);
+
+            }
+        });
+
+        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener(){
+            @Override
+            public void onClick(DialogInterface dialog, int id)
+            {
+                Toast.makeText(getApplicationContext(), "취소하였습니다.", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+
+        AlertDialog alertDialog = builder.create();
+        alertDialog.show();
+    }
 }
