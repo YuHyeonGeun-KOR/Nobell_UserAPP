@@ -224,6 +224,9 @@ public class Fragment2 extends Fragment {
                     rs_table[(table_x) + (10 * (table_y-1))-1].setText(Integer.toString(table_no));
                     rs_table[(table_x) + (10 * (table_y-1))-1].setEnabled(false);
                 }
+                else{
+                    rs_table[(table_x) + (10 * (table_y-1))-1].setVisibility(View.INVISIBLE);
+                }
 
             }
 
