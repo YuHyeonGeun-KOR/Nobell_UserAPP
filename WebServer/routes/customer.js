@@ -374,30 +374,26 @@ router.post('/res_menu', function(req, res, next) {
 
   router.post('/pay', function(req, res, next) {
 
-    console.log('-> Get customer_email = ', req.body.customer_email,'-> Get pay_rs = ', req.body.pay_rs,'-> Get pay_table = ' ,req.body.pay_table);
+    console.log('-> Get customer_email = ', req.body.customer_email);
   
-    var pay_rs = req.body.pay_rs;
-    var pay_table = req.body.pay_table;
+  
     var customer_email = req.body.customer_email;
 
-    var table = [pay_rs, pay_table];
     var table1 = [customer_email];
     
     pool.getConnection(function(err, connection){
         connection.query("UPDATE nobell.customer_tbl SET customer_state = 3 WHERE customer_email = ?", table1, function(err,data){
             if(err) console.log(err);
             else console.log("result", data);
-            
+            res.send();
        
         });
-        connection.query("INSERT INTO nobell.pay_tbl(pay_rs,pay_table) values(?,?)", table, function(err,data){
+        connection.query("UPDATE nobell.table_tbl SET table_state = 2 WHERE table_customer = ?", table1, function(err,data){
             if(err) console.log(err);
             else console.log("result", data);
-            res.send(data);
-            
+            res.send();
        
         });
-        
         connection.release();
     });
   });
