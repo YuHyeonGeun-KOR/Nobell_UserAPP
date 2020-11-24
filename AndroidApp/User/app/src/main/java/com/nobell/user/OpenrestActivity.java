@@ -6,6 +6,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -21,7 +22,10 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import static java.security.AccessController.getContext;
+
 public class OpenrestActivity extends AppCompatActivity {
+    public static Activity meme;
     private ImageButton btn_Info,btn_Search,btn_pay;
     String customer_email ;
     String data_t;
@@ -39,6 +43,8 @@ public class OpenrestActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_openrest);
+
+        meme = OpenrestActivity.this;
 
         Intent intent = getIntent();
         customer_email = intent.getStringExtra("customer_email");
@@ -171,7 +177,7 @@ public class OpenrestActivity extends AppCompatActivity {
 
     public void PayOnClickHandler(View view)
     {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        final AlertDialog.Builder builder = new AlertDialog.Builder(this);
 
         builder.setTitle("결제하기").setMessage("결제를 요청하시겠습니까??");
 
@@ -179,13 +185,11 @@ public class OpenrestActivity extends AppCompatActivity {
             @Override
             public void onClick(DialogInterface dialog, int id)
             {
-                String param ="&customer_email=" + customer_email + "&pay_rs=" + rs_id + "&pay_table=" + table_no;
+                String param ="&customer_email=" + customer_email;
                 HttpConnector conn2 = new HttpConnector();
                 String data_t2 = conn2.httpConnect(param,"/pay","POST");
-                Toast.makeText(getApplicationContext(), "결제를 요청하셨습니다.", Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(OpenrestActivity.this, OpenrestActivity.class);
-                intent.putExtra("customer_email", customer_email);
-                startActivity(intent);
+                OpenrestActivity.meme.recreate();
+
 
             }
         });
