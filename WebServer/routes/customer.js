@@ -398,4 +398,48 @@ router.post('/res_menu', function(req, res, next) {
     });
   });
  
+
+  router.post('/res_review', function(req, res, next) {
+
+    console.log('-> Get rs_name = ', req.body.rs_name);
+  
+    var rs_name = req.body.rs_name;
+   
+  
+    var name = [rs_name];
+    
+    pool.getConnection(function(err, connection){
+        connection.query("select * FROM nobell.review_tbl WHERE review_rs_id=(select rs_id FROM nobell.restaurant_tbl WHERE rs_name=?)", name, function(err, data){
+            console.log("result", data);
+            res.send(data);
+            
+       
+        });
+        connection.release();
+    });
+  });
+  
+
+  router.post('/set_review', function(req, res, next) {
+
+    console.log('-> Get review_rs_name = ', req.body.review_rs_name,'-> Get customer_email = ', req.body.customer_email,'-> Get review_content = ', req.body.review_content);
+  
+    var review_rs_name = req.body.review_rs_name;
+    var customer_email = req.body.customer_email;
+    var review_content = req.body.review_content;
+   
+  
+    var name = [review_rs_name,customer_email,review_content];
+    
+    pool.getConnection(function(err, connection){
+        connection.query("INSERT INTO nobell.review_tbl(review_rs_id, review_customer, review_content, review_time) values((select rs_id FROM nobell.restaurant_tbl WHERE rs_name=?),(select customer_name FROM nobell.customer_tbl WHERE customer_email=?),?,date(now()))", name, function(err, data){
+            console.log("result", data);
+            res.send();
+            
+       
+        });
+        connection.release();
+    });
+  });
+  
 module.exports = router;
