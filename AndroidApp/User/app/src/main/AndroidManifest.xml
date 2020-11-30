@@ -11,7 +11,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".VisitActivity"></activity>
+        <activity android:name=".reviewActivity"></activity>
+        <activity android:name=".VisitActivity" />
         <activity android:name=".ReservationActivity" />
         <activity android:name=".RestaurantView" />
         <activity android:name=".InfoMainActivity" />

@@ -79,7 +79,7 @@ public class Restaurant_menuActivity extends AppCompatActivity {
         bundle2.putString("customer_email",customer_email);
 
         Bundle bundle3 = new Bundle();
-        bundle2.putString("rs_name",rs_name);
+        bundle3.putString("rs_name",rs_name);
         bundle3.putString("customer_email",customer_email);
 
         String sb = "";

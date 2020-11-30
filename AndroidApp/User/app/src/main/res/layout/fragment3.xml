@@ -6,13 +6,25 @@
     android:gravity="center"
     android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/fragment_tv3"
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="리뷰 Fragment"
-        android:textColor="@android:color/black"
-        android:textSize="30sp" />
+        android:layout_weight="1">
 
+        <LinearLayout
+            android:id="@+id/view_review3"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+            <Button
+                android:id="@+id/btn_review"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#FFF1A0"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:text="리뷰 작성하러가기 ☞" />
+
+        </LinearLayout>
+    </ScrollView>
 </LinearLayout>
