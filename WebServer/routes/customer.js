@@ -404,12 +404,9 @@ router.post('/res_menu', function(req, res, next) {
     console.log('-> Get rs_name = ', req.body.rs_name);
   
     var rs_name = req.body.rs_name;
-   
-  
-    var name = [rs_name];
     
     pool.getConnection(function(err, connection){
-        connection.query("select * FROM nobell.review_tbl WHERE review_rs_id=(select rs_id FROM nobell.restaurant_tbl WHERE rs_name=?)", name, function(err, data){
+        connection.query("select review_tbl.*, answer_tbl.answer_content, answer_tbl.answer_time from nobell.review_tbl join answer_tbl on review_tbl.review_aid=answer_tbl.answer_id WHERE review_rs_id=(select rs_id FROM nobell.restaurant_tbl WHERE rs_name=?)", rs_name, function(err, data){
             console.log("result", data);
             res.send(data);
             
