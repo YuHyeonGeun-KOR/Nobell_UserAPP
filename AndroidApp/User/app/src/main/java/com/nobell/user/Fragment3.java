@@ -3,6 +3,7 @@ import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,7 +26,7 @@ import org.json.JSONObject;
 public class Fragment3 extends Fragment{
     ViewGroup viewGroup;
     private LinearLayout view_review3;
-    String rs_name,review_customer,review_time,customer_email;
+    String rs_name,review_customer,review_time,customer_email,answer_content,answer_time;
     int rs_id;
     private String review_content;
     String data_r,param;
@@ -59,6 +60,8 @@ public class Fragment3 extends Fragment{
                 review_customer = jsonObject.getString("review_customer");
                 review_content = jsonObject.getString("review_content");
                 review_time = jsonObject.getString("review_time");
+                answer_content = jsonObject.getString("answer_content");
+                answer_time = jsonObject.getString("answer_time");
 
                 Log.e("RECV DATA", review_customer);
 
@@ -70,20 +73,46 @@ public class Fragment3 extends Fragment{
 
                 TextView tv_review_customer = new TextView(this.getActivity());
                 tv_review_customer.setWidth(100);
-                tv_review_customer.setHeight(120);
+                tv_review_customer.setHeight(100);
                 tv_review_customer.setTextSize(20);
                 tv_review_customer.setText(review_customer);
 
                 TextView tv_review_time = new TextView(this.getActivity());
                 tv_review_time.setWidth(100);
-                tv_review_time.setHeight(120);
-                tv_review_time.setTextSize(20);
+                tv_review_time.setHeight(100);
+                tv_review_time.setTextSize(10);
                 tv_review_time.setText(review_time);
+
+
+                String Owner_name = "사장님의 답글";
+                TextView tv_review_owner = new TextView(this.getActivity());
+                tv_review_owner.setWidth(100);
+                tv_review_owner.setHeight(100);
+                tv_review_owner.setTextSize(20);
+                tv_review_owner.setGravity(Gravity.RIGHT);
+                tv_review_owner.setText(Owner_name);
+
+                TextView tv_answer_content = new TextView(this.getActivity());
+                tv_review_customer.setWidth(100);
+                tv_review_customer.setHeight(100);
+                tv_review_customer.setTextSize(20);
+                tv_answer_content.setGravity(Gravity.RIGHT);
+                tv_answer_content.setText(answer_content);
+
+
+                TextView tv_answer_time = new TextView(this.getActivity());
+                tv_answer_time.setWidth(100);
+                tv_answer_time.setHeight(100);
+                tv_answer_time.setTextSize(10);
+                tv_answer_time.setGravity(Gravity.RIGHT);
+                tv_answer_time.setText(answer_time);
 
                 view_review3.addView(tv_review_content);
                 view_review3.addView(tv_review_customer);
                 view_review3.addView(tv_review_time);
-
+                view_review3.addView(tv_review_owner);
+                view_review3.addView(tv_answer_content);
+                view_review3.addView(tv_answer_time);
 
             }
 
@@ -116,6 +145,7 @@ public class Fragment3 extends Fragment{
                         String data_r = conn.httpConnect(param,"/set_review","POST");
                         Toast.makeText(getActivity(), "리뷰를 작성했습니다!!", Toast.LENGTH_SHORT).show();
                         myDialog.cancel();
+                        getActivity().recreate();
 
                     }
                 });
