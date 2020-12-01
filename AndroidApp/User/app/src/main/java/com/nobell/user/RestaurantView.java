@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -51,8 +52,8 @@ public class RestaurantView extends AppCompatActivity {
     private int rs_state;
     private LinearLayout view_menus;
     private List<String> data;
-
     String customer_email ;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -67,11 +68,10 @@ public class RestaurantView extends AppCompatActivity {
 
                  view_menus = (LinearLayout) findViewById(R.id.view_menus);
 
-
                 try {
                     JSONArray jarray = new JSONArray(data_r);
                     for (int i = 0; i < jarray.length(); i++){
-
+                        Typeface typeface = Typeface.createFromAsset(getAssets(), "font/jua.ttf");
                         JSONObject jsonObject = jarray.getJSONObject(i);
                         rs_id = jsonObject.getInt("rs_id");
                         rs_name = jsonObject.getString("rs_name");
@@ -88,6 +88,7 @@ public class RestaurantView extends AppCompatActivity {
                         tv_name.setWidth(300);
                         tv_name.setHeight(120);
                         tv_name.setTextSize(30);
+                        tv_name.setTypeface(typeface);
                         tv_name.setText(rs_name); TextView tv_state = new TextView(this);
                         if(rs_state == 1){
                             tv_name.setBackgroundColor(Color.parseColor("#aaff88"));
@@ -118,6 +119,7 @@ public class RestaurantView extends AppCompatActivity {
                         tv_phone.setHeight(60);
                         tv_phone.setGravity(Gravity.LEFT);
                         tv_phone.setTextSize(15);
+                        tv_phone.setTypeface(typeface);
                         tv_phone.setText("연락처 : "+rs_phone);
 
                         TextView tv_address = new TextView(this);
@@ -126,6 +128,7 @@ public class RestaurantView extends AppCompatActivity {
                         tv_address.setHeight(60);
                         tv_address.setGravity(Gravity.LEFT);
                         tv_address.setTextSize(15);
+                        tv_address.setTypeface(typeface);
                         tv_address.setText("주소 : "+rs_address);
 
                         TextView tv_intro = new TextView(this);
@@ -134,6 +137,7 @@ public class RestaurantView extends AppCompatActivity {
                         tv_intro.setHeight(60);
                         tv_intro.setGravity(Gravity.LEFT);
                         tv_intro.setTextSize(15);
+                        tv_intro.setTypeface(typeface);
                         tv_intro.setText("사장님의 한마디 : " + rs_intro);
 
                         TextView tv_open = new TextView(this);
@@ -142,6 +146,7 @@ public class RestaurantView extends AppCompatActivity {
                         tv_open.setLeft(10);
                         tv_open.setGravity(Gravity.LEFT);
                         tv_open.setTextSize(15);
+                        tv_open.setTypeface(typeface);
                         tv_open.setText("오픈시간 : "+rs_open);
 
                         TextView tv_close = new TextView(this);
@@ -150,6 +155,7 @@ public class RestaurantView extends AppCompatActivity {
                         tv_close.setLeft(10);
                         tv_close.setGravity(Gravity.LEFT);
                         tv_close.setTextSize(15);
+                        tv_close.setTypeface(typeface);
                         tv_close.setText("마감시간 : " + rs_close);
 
                         TextView tv_owner = new TextView(this);
@@ -158,6 +164,7 @@ public class RestaurantView extends AppCompatActivity {
                         tv_owner.setLeft(10);
                         tv_owner.setGravity(Gravity.LEFT);
                         tv_owner.setTextSize(15);
+                        tv_owner.setTypeface(typeface);
                         tv_owner.setText("사장님 : "+rs_owner);
 
 
